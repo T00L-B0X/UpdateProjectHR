@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bswill.mappers.CommonMapper">
+
+	<select id="selectPasswd" resultType="String">
+		SELECT PASSWD
+		FROM tbl_employee
+		WHERE employee_id=#{employee_id}
+	</select>
+	
+	<update id="updatePasswd">
+		UPDATE tbl_employee
+		SET PASSWD=#{newPASSWD}
+		WHERE employee_id=#{employee_id}
+	</update>
+
+</mapper>

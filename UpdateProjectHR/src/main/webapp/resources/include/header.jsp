@@ -3,39 +3,39 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<link rel="icon" href="/resources/img/favicon.ico" type="image/x-icon">
-		<title>BSWILL HRD</title>
-		<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-		<!-- Bootstrap 3.3.4 -->
-		<link href="${pageContext.request.contextPath }/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-		<!-- Font Awesome Icons -->
-		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-		<!-- Ionicons -->
-		<link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-		<!-- Theme style -->
-		<link href="/resources/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
-		<!-- AdminLTE Skins. Choose a skin from the css/skins 
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="/resources/img/favicon.ico" type="image/x-icon">
+<title>BSWILL HRD</title>
+<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+<!-- Bootstrap 3.3.4 -->
+<link href="${pageContext.request.contextPath }/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<!-- Font Awesome Icons -->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<!-- Ionicons -->
+<link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+<!-- Theme style -->
+<link href="/resources/dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+<!-- AdminLTE Skins. Choose a skin from the css/skins 
 		         folder instead of downloading all of them to reduce the load. -->
-		<link href="/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
-		<script src="https://kit.fontawesome.com/ce16b4434b.js" crossorigin="anonymous"></script>
-		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
+<link href="/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+<script src="https://kit.fontawesome.com/ce16b4434b.js" crossorigin="anonymous"></script>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
 		        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		    <![endif]-->
-		<meta name="_csrf" content="${_csrf.token}" />
-		<meta name="_csrf_header" content="${_csrf.headerName}" />
-	</head>
+<meta name="_csrf" content="${_csrf.token}" />
+<meta name="_csrf_header" content="${_csrf.headerName}" />
+</head>
 <!-- jQuery 2.1.4 -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <body class="skin-blue sidebar-mini">
 	<div class="wrapper">
 		<header class="main-header">
 			<!-- Logo -->
-			<a href="/common/main" class="logo">
+			<a href="/main" class="logo">
 				<!-- mini logo for sidebar mini 50x50 pixels -->
 				<span class="logo-mini">HRD</span>
 				<!-- logo for regular state and mobile devices -->
@@ -104,7 +104,7 @@
 										<a href="/common/changePw" class="btn btn-default btn-flat">비밀번호 변경</a>
 									</div>
 									<div class="pull-right">
-										<form action="/customLogout" method="post" onsubmit="showAlert()">
+										<form action="/logoutbswill" method="post" onsubmit="showAlert()">
 											<!-- 폼태그정보를 post방식으로 전달할때 csrf토큰정보 필요 -->
 											<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 											<input type="submit" class="btn btn-default btn-flat" value="로그아웃">
@@ -147,7 +147,7 @@
 				<ul class="sidebar-menu">
 					<li class="header">Menu</li>
 					<li class="treeview"><a href="#">
-							<i class="fa-solid fa-user"> </i> &nbsp <span>인사 관리</span> <i class="fa fa-angle-left pull-right"></i>
+							&nbsp;&nbsp;<i class="fa-solid fa-user"></i>&nbsp;&nbsp;&nbsp;<span>인사 관리</span><i class="fa fa-angle-left pull-right"></i>
 						</a>
 						<ul class="treeview-menu">
 							<li><a href="/emp/viewEmp">
@@ -174,24 +174,7 @@
 							</sec:authorize>
 						</ul></li>
 					<li class="treeview"><a href="#">
-							<i class="fa-solid fa-building"></i> &nbsp <span>근태 관리</span> <i class="fa fa-angle-left pull-right"></i>
-						</a>
-						<ul class="treeview-menu">
-							<li><a href="/attendance/list">
-									<i class="fa fa-circle-o"></i> 출퇴근 조회
-								</a></li>
-							<li><a href="/leaves/requests">
-									<i class="fa fa-circle-o"></i> 휴가 신청 내역
-								</a></li>
-							<li><a href="/leaves/annualLeave">
-									<i class="fa fa-circle-o"></i> 연차조회
-								</a></li>
-							<li><a href="/leaves/annualLeaveAdd">
-									<i class="fa fa-circle-o"></i> 연차생성
-								</a></li>
-						</ul></li>
-					<li class="treeview"><a href="#">
-							<i class="fa-solid fa-won-sign"></i> &nbsp <span>급여 관리</span> <i class="fa fa-angle-left pull-right"></i>
+							&nbsp;&nbsp;<i class="fa-solid fa-won-sign"></i>&nbsp;&nbsp;&nbsp;<span>급여 관리</span><i class="fa fa-angle-left pull-right"></i>
 						</a>
 						<ul class="treeview-menu">
 							<li><a href="../salary/salarySearch">
@@ -207,7 +190,7 @@
 							</sec:authorize>
 						</ul></li>
 					<li class="treeview"><a href="#">
-							<i class="fa-solid fa-people-roof"></i> &nbsp <span>조직도</span> <i class="fa fa-angle-left pull-right"></i>
+							&nbsp;<i class="fa-solid fa-people-roof"></i>&nbsp;&nbsp;&nbsp;<span>조직도</span><i class="fa fa-angle-left pull-right"></i>
 						</a>
 						<ul class="treeview-menu">
 							<li><a href="../org/orgList">
@@ -221,7 +204,10 @@
 								</a></li>
 						</ul></li>
 					<li class="treeview"><a href="/board/list">
-							<i class="fa-regular fa-clipboard"></i> &nbsp &nbsp <span> 공지사항</span>
+							&nbsp;&nbsp;<i class="fa-regular fa-clipboard"></i>&nbsp;&nbsp;&nbsp;<span>공지사항</span>
+						</a></li>
+					<li class="treeview"><a href="/board/list">
+							<i class="fa fa-fw fa-bell-o"></i>&nbsp;&nbsp;<span>알림</span>
 						</a></li>
 			</section>
 			<!-- /.sidebar -->
