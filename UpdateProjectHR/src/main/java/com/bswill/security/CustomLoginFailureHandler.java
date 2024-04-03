@@ -21,7 +21,7 @@ public class CustomLoginFailureHandler implements AuthenticationFailureHandler {
 		logger.debug(" CustomLoginFailureHandler_onAuthenticationFailure() 호출 ");
 		logger.debug(" 인증실패(로그인 실패) 후 처리 수행 ");
 
-		response.sendRedirect("/loginbswill?error=1");
+		response.sendRedirect("/loginBswill?error=1");
 	}
 
 }

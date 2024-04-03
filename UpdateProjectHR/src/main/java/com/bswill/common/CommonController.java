@@ -1,6 +1,7 @@
 package com.bswill.common;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(value = "/*")
@@ -25,17 +27,18 @@ public class CommonController {
 	private PasswordEncoder pwEncoder;
 
 	// 권한 없을 때
-	@RequestMapping(value = "/accesserror", method = RequestMethod.GET)
-	public void accessDenied(Authentication auth, Model model) throws Exception {
-		logger.debug("CommonController - accessDenied() 호출");
+	@RequestMapping(value = "/accessError", method = RequestMethod.GET)
+	public void accessDeniedGET(Authentication auth, Model model) throws Exception {
+		logger.debug("CommonController - accessDeniedGET() 호출");
 
 		model.addAttribute("message", "Access Denied!");
 	}
 
 	// 로그인
-	@RequestMapping(value = "/loginbswill", method = RequestMethod.GET)
-	public void loginbswill(String error, String logout, Model model) throws Exception {
-		logger.debug("CommonController - loginInput() 호출");
+	// http://localhost:8088/loginBswill
+	@RequestMapping(value = "/loginBswill", method = RequestMethod.GET)
+	public void loginbswillGET(String error, String logout, Model model) throws Exception {
+		logger.debug("CommonController - loginbswillGET() 호출");
 
 		logger.debug("error:" + error);
 		logger.debug("logout:" + logout);
@@ -50,29 +53,55 @@ public class CommonController {
 	}
 
 	// 로그아웃
-	@RequestMapping(value = "/logoutbswill", method = RequestMethod.GET)
-	public void loginbswill() throws Exception {
-		logger.debug(" customLogout() 호출 ");
+	@RequestMapping(value = "/logoutBswill", method = RequestMethod.GET)
+	public void logoutbswillGET() throws Exception {
+		logger.debug(" logoutbswillGET() 호출 ");
 		logger.debug(" 로그아웃 ");
 	}
 
 	// 메인
 	// http://localhost:8088/main
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public void main(Model model) throws Exception {
-		logger.debug("CommonController - main() 호출");
+	public void mainGET(Model model, HttpSession session) throws Exception {
+		logger.debug("CommonController - mainGET() 호출");
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		int employee_id = Integer.parseInt(authentication.getName());
 
-		model.addAttribute("PASSWD", cService.getPasswd(employee_id));
+		session.setAttribute("getEmpInfo", cService.getEmpInfo(employee_id));
+
+		model.addAttribute("getJobInfo", cService.getJobInfo());
+		model.addAttribute("getDeptInfo", cService.getDeptInfo());
 	}
 
 	// 비밀번호 변경
-	// http://localhost:8088/common/chagePw
-	@RequestMapping(value = "/changePw", method = RequestMethod.GET)
-	public void changePasswdGET() throws Exception {
-		logger.debug(" changePasswdGET() 호출 ");
+	// http://localhost:8088/changePassword
+	@RequestMapping(value = "/changePassword", method = RequestMethod.GET)
+	public void changePasswordGET() throws Exception {
+		logger.debug(" changePasswordGET() 호출 ");
+	}
+
+	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
+	public String changePasswordPOST(@RequestParam("currentPassword") String currentPassword, @RequestParam("newPassword") String newPassword,
+			@RequestParam("confirmPassword") String confirmPassword) throws Exception {
+		logger.debug(" changePasswordPOST() 호출 ");
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		int employee_id = Integer.parseInt(authentication.getName());
+
+		String password = cService.getPassword(employee_id);
+
+		String path = "";
+
+		if (pwEncoder.matches(currentPassword, password) && newPassword.equals(confirmPassword)) {
+			cService.modifyPassword(employee_id, pwEncoder.encode(newPassword));
+
+			path = "redirect:/main";
+		} else {
+			path = "redirect:/changePassword?error=1";
+		}
+
+		return path;
 	}
 
 }

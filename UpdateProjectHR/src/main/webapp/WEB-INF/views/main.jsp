@@ -108,7 +108,7 @@
 											</tr>
 
 
-											<c:forEach var="info" items="${deptInfo}" varStatus="stat">
+											<c:forEach var="info" items="${getDeptInfo}" varStatus="stat">
 												<tr>
 													<td>${stat.count }</td>
 													<td>${info.DEPTID }</td>
@@ -137,7 +137,7 @@
 											</tr>
 
 
-											<c:forEach var="info" items="${jobInfo}" varStatus="stat">
+											<c:forEach var="info" items="${getJobInfo}" varStatus="stat">
 												<tr>
 													<td>${stat.count }</td>
 													<td>${info.JOB_ID }</td>

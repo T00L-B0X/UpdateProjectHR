@@ -26,11 +26,11 @@
 		<security:access-denied-handler ref="customAccessDenied" />
 
 		<!-- 로그인 -->
-		<security:form-login login-page="/loginbswill" authentication-success-handler-ref="customLoginSuccess"
+		<security:form-login login-page="/loginBswill" authentication-success-handler-ref="customLoginSuccess"
 			authentication-failure-handler-ref="customLoginFailure" />
 		
 		<!-- 로그아웃 -->
-		<security:logout logout-url="/logoutbswill" logout-success-url="/loginbswill?logout=1" invalidate-session="true" />
+		<security:logout logout-url="/logoutBswill" logout-success-url="/loginBswill?logout=1" invalidate-session="true" />
 
 	</security:http>
 

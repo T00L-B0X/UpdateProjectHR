@@ -89,22 +89,22 @@
 							</ul></li>
 						<!-- User Account: style can be found in dropdown.less -->
 						<li class="dropdown user user-menu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<img src="/emp/download?PROFIL=${sessionScope.evo.PROFIL }" class="user-image" alt="User Image" /> <span class="hidden-xs">${sessionScope.evo.emp_name } </span>
+								<img src="/emp/download?PROFIL=${sessionScope.getEmpInfo.PROFIL }" class="user-image" alt="User Image" /> <span class="hidden-xs">${sessionScope.getEmpInfo.emp_name } </span>
 							</a>
 							<ul class="dropdown-menu">
 								<!-- User image -->
-								<li class="user-header"><img src="/emp/download?PROFIL=${sessionScope.evo.PROFIL }" class="img-circle" alt="User Image" />
+								<li class="user-header"><img src="/emp/download?PROFIL=${sessionScope.getEmpInfo.PROFIL }" class="img-circle" alt="User Image" />
 									<p>
-										${sessionScope.evo.emp_name } <small>Member since ${sessionScope.evo.start_date }</small>
+										${sessionScope.getEmpInfo.emp_name } <small>Member since ${sessionScope.getEmpInfo.start_date }</small>
 									</p></li>
 								<!-- Menu Body -->
 								<!-- Menu Footer-->
 								<li class="user-footer">
 									<div class="pull-left">
-										<a href="/common/changePw" class="btn btn-default btn-flat">비밀번호 변경</a>
+										<a href="/changePassword" class="btn btn-default btn-flat">비밀번호 변경</a>
 									</div>
 									<div class="pull-right">
-										<form action="/logoutbswill" method="post" onsubmit="showAlert()">
+										<form action="/logoutBswill" method="post" onsubmit="showAlert()">
 											<!-- 폼태그정보를 post방식으로 전달할때 csrf토큰정보 필요 -->
 											<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 											<input type="submit" class="btn btn-default btn-flat" value="로그아웃">
@@ -125,18 +125,19 @@
 			<!-- sidebar: style can be found in sidebar.less -->
 			<section class="sidebar">
 				<!-- Sidebar user panel -->
-				<div class="user-panel">
+				<div class="user-panel" style="height: 80px;">
 					<div class="pull-left image">
-						<img src="/emp/download?PROFIL=${sessionScope.evo.PROFIL }" class="img-circle" alt="User Image" />
+						<img src="/emp/download?PROFIL=${sessionScope.getEmpInfo.PROFIL }" class="img-circle" alt="User Image" />
 					</div>
 					<div class="pull-left info">
-						<p>${sessionScope.evo.emp_name }</p>
-						<c:if test="${not empty sessionScope.evo}">
+						<p>${sessionScope.getEmpInfo.emp_name }</p>
+						<h6>${sessionScope.getEmpInfo.DEPTNM }&nbsp;&nbsp;&nbsp;${sessionScope.getEmpInfo.JOB }</h6>
+						<c:if test="${not empty sessionScope.getEmpInfo}">
 							<a href="#">
 								<i class="fa fa-circle text-success"></i> Online
 							</a>
 						</c:if>
-						<c:if test="${empty sessionScope.evo}">
+						<c:if test="${empty sessionScope.getEmpInfo}">
 							<a href="#">
 								<i class="fa fa-circle text-danger"></i> Offline
 							</a>
