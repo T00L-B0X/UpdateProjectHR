@@ -5,6 +5,24 @@
 
 <mapper namespace="com.bswill.mappers.CommonMapper">
 
+	<select id="selectEmpInfo" resultType="map">
+		SELECT employee_id, emp_name, PROFIL, job.JOB, dept.DEPTNM, start_date 
+		FROM tbl_employee emp
+		JOIN tbl_job job ON emp.JOB_ID=job.JOB_ID
+		JOIN tbl_department dept ON emp.DEPTID=dept.DEPTID
+		WHERE employee_id=#{employee_id}
+	</select>
+	
+	<select id="selectJobInfo" resultType="com.bswill.domain.JobVO">
+		SELECT JOB_ID, JOB
+		FROM tbl_job
+	</select>
+	
+	<select id="selectDeptInfo" resultType="com.bswill.domain.DepartmentVO">
+		SELECT DEPTID, DEPTNM
+		FROM tbl_department
+	</select>
+
 	<select id="selectPasswd" resultType="String">
 		SELECT PASSWD
 		FROM tbl_employee
