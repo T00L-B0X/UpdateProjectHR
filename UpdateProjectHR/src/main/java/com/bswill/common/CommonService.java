@@ -23,4 +23,13 @@ public interface CommonService {
 	// 사원 비밀번호 변경
 	public void modifyPassword(Integer employee_id, String newPassword) throws Exception;
 
+	// 전체 사원수 조회
+	public int getEmpCount() throws Exception;
+
+	// 재직 사원수 조회
+	public int getCurrentEmpCount() throws Exception;
+
+	// 올해 입사자수 조회
+	public int getNewEmpCount() throws Exception;
+
 }

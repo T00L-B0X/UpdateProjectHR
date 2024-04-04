@@ -55,4 +55,25 @@ public class CommonServiceImpl implements CommonService {
 		cdao.updatePassword(employee_id, newPassword);
 	}
 
+	@Override
+	public int getEmpCount() throws Exception {
+		logger.debug("getEmpCount() 호출");
+
+		return cdao.selectEmpCount();
+	}
+
+	@Override
+	public int getCurrentEmpCount() throws Exception {
+		logger.debug("getCurrentEmpcount() 호출");
+
+		return cdao.selectCurrentEmpCount();
+	}
+
+	@Override
+	public int getNewEmpCount() throws Exception {
+		logger.debug("getNewEmpCount() 호출");
+
+		return cdao.selectNewEmpCount();
+	}
+
 }

@@ -23,4 +23,13 @@ public interface CommonDAO {
 	// 사원 비밀번호 변경
 	public void updatePassword(Integer employee_id, String newPassword) throws Exception;
 
+	// 전체 사원수 조회
+	public int selectEmpCount() throws Exception;
+
+	// 재직 사원수 조회
+	public int selectCurrentEmpCount() throws Exception;
+
+	// 올해 입사자수 조회
+	public int selectNewEmpCount() throws Exception;
+
 }

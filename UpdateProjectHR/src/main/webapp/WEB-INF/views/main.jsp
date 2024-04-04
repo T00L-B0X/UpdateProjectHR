@@ -2,10 +2,9 @@
 
 <%@ include file="/resources/include/header.jsp"%>
 
-<div style="min-height: 1136.28px;">
-	<section class="content">
+<div class="content-wrapper">
+	<section class="content" style="min-height: 1150px;">
 		<div class="col-md-3">
-
 			<div class="box box-primary">
 				<div class="box-body box-profile">
 					<img class="img-responsive" style="margin: auto;" src="/resources/img/bswill.jpg">
@@ -18,9 +17,7 @@
 						<li class="list-group-item"><b>E-mail</b> <a class="pull-right">BSWILL@gmail.com</a></li>
 					</ul>
 				</div>
-
 			</div>
-
 
 			<div class="box box-primary">
 				<div class="box-header with-border">
@@ -41,9 +38,7 @@
 					<p class="text-muted">Bswill은 지속적인 기술 혁신과 제품 개선을 통해 시장에서의 경쟁력을 강화하고 성장을 지속했습니다. 회사는 고객 중심의 비전을 추구하며 새로운 시장 기회를 탐색하고 있습니다.</p>
 					<hr>
 				</div>
-
 			</div>
-
 		</div>
 
 		<div class="col-md-9">
@@ -58,7 +53,7 @@
 								<div class="col-lg-4 col-xs-6">
 									<div class="small-box bg-green">
 										<div class="inner">
-											<h3>${allEmpCnt}</h3>
+											<h3>${getEmpCount }</h3>
 											<p>사원수</p>
 										</div>
 										<div class="icon">
@@ -69,7 +64,7 @@
 								<div class="col-lg-4 col-xs-6">
 									<div class="small-box bg-yellow">
 										<div class="inner">
-											<h3>${currentEmpCnt }</h3>
+											<h3>${getCurrentEmpcount }</h3>
 											<p>재직자수</p>
 										</div>
 										<div class="icon">
@@ -80,7 +75,7 @@
 								<div class="col-lg-4 col-xs-6">
 									<div class="small-box bg-aqua">
 										<div class="inner">
-											<h3>${newEmpCnt }</h3>
+											<h3>${getNewEmpCount }</h3>
 											<p>올해입사자수</p>
 										</div>
 										<div class="icon">
@@ -99,14 +94,13 @@
 								</div>
 
 								<div class="box-body no-padding">
-									<table class="table table-striped">
+									<table class="table table-striped" style="font-size: 1.2em;">
 										<tbody>
 											<tr>
 												<th style="width: 10px">#</th>
 												<th>부서번호</th>
 												<th>부서이름</th>
 											</tr>
-
 
 											<c:forEach var="info" items="${getDeptInfo}" varStatus="stat">
 												<tr>
@@ -118,7 +112,6 @@
 										</tbody>
 									</table>
 								</div>
-
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -128,14 +121,13 @@
 								</div>
 
 								<div class="box-body no-padding">
-									<table class="table table-striped">
+									<table class="table table-striped" style="font-size: 1.2em">
 										<tbody>
 											<tr>
 												<th style="width: 10px">#</th>
 												<th>직책번호</th>
 												<th>직책이름</th>
 											</tr>
-
 
 											<c:forEach var="info" items="${getJobInfo}" varStatus="stat">
 												<tr>
@@ -147,7 +139,6 @@
 										</tbody>
 									</table>
 								</div>
-
 								<div class="box-body no-padding " style="margin-top: 30px">
 									<img style="display: block; max-width: 100%; height: auto; margin: auto;" src="/resources/img/orgchart.png">
 								</div>
@@ -158,7 +149,6 @@
 			</div>
 		</div>
 	</section>
-
 </div>
 
 <%@ include file="/resources/include/footer.jsp"%>

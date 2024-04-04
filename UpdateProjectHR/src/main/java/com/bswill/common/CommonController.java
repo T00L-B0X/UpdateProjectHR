@@ -52,13 +52,6 @@ public class CommonController {
 		}
 	}
 
-	// 로그아웃
-	@RequestMapping(value = "/logoutBswill", method = RequestMethod.GET)
-	public void logoutbswillGET() throws Exception {
-		logger.debug(" logoutbswillGET() 호출 ");
-		logger.debug(" 로그아웃 ");
-	}
-
 	// 메인
 	// http://localhost:8088/main
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
@@ -72,6 +65,9 @@ public class CommonController {
 
 		model.addAttribute("getJobInfo", cService.getJobInfo());
 		model.addAttribute("getDeptInfo", cService.getDeptInfo());
+		model.addAttribute("getEmpCount", cService.getEmpCount());
+		model.addAttribute("getCurrentEmpcount", cService.getCurrentEmpCount());
+		model.addAttribute("getNewEmpCount", cService.getNewEmpCount());
 	}
 
 	// 비밀번호 변경

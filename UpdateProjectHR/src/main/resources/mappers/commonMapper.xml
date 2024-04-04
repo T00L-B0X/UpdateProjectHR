@@ -35,4 +35,22 @@
 		WHERE employee_id=#{employee_id}
 	</update>
 
+	<select id="selectEmpCount" resultType="int">
+		SELECT count(*)
+		FROM tbl_employee
+		WHERE STATUS = 1 or STATUS = 2;
+	</select>
+
+	<select id="selectCurrentEmpCount" resultType="int">
+		SELECT count(*)
+		FROM tbl_employee
+		WHERE STATUS = 1;
+	</select>
+
+	<select id="selectNewEmpCount" resultType="int">
+		SELECT count(*)
+		FROM tbl_employee
+		WHERE start_date LIKE CONCAT(YEAR(CURRENT_DATE()), '%')
+	</select>
+
 </mapper>

@@ -33,7 +33,7 @@
 		</div>
 		<div class="login-box-body">
 			<p class="login-box-msg">비밀번호 변경</p>
-			<form role="form" action="/changePassword" method="post">
+			<form role="form" action="" method="post">
 				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
 				<div class="form-group has-feedback">
 					<label for="currentPassword">현재 비밀번호 </label>
