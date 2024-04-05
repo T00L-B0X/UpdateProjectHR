@@ -33,7 +33,7 @@
 </head>
 <!-- jQuery 2.1.4 -->
 <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-<script type="text/javascript" src="header.js"></script>
+<script type="text/javascript" src="/resources/js/header.js"></script>
 
 <body class="skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -58,7 +58,7 @@
 								<i class="fa fa-bell-o"></i> <span class="label label-warning">${countNotification }</span>
 							</a>
 							<ul class="dropdown-menu">
-								<li class="header">${countNotification }개의알림이 있습니다.</li>
+								<li class="header">${countNotification }개의알림이있습니다.</li>
 								<li>
 									<!-- inner menu: contains the actual data -->
 									<ul class="menu">
@@ -134,7 +134,7 @@
 							<i class="fa fa-user-plus"></i> <span>인사관리</span> <i class="fa fa-angle-left pull-right"></i>
 						</a>
 						<ul class="treeview-menu">
-							<li><a href="/employee/getEmp">
+							<li><a href="/employee/getEmpInfo">
 									<i class="fa fa-circle-o"></i>인사정보조회
 								</a></li>
 							<sec:authorize access="hasAnyRole('ROLE_MANAGER', 'ROLE_ADMIN')">

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bswill.mappers.EmployeeMapper">
+
+	<!-- 로그인한 사원 정보 -->
+	<select id="selectEmpInfo" resultType="map">
+		SELECT employee_id, emp_name, PROFIL, birth, gender, emp_tel, emp_mail, emp_addr, job.JOB, dept.DEPTNM, STATUS, start_date, quit_date
+		FROM tbl_employee emp
+		JOIN tbl_job job ON emp.JOB_ID = job.JOB_ID
+		JOIN tbl_department dept ON emp.DEPTID = dept.DEPTID
+		WHERE emp.employee_id=#{employee_id}
+	</select>
+	
+	<!-- 로그인한 사원 자격증 정보 -->
+	<select id="selectEmpLicense" resultType="LicenseVO">
+		SELECT *
+		FROM tbl_license
+		WHERE employee_id=#{employee_id}
+	</select>
+	
+	<!-- 로그인한 사원 발령 정보 -->
+	<select id="selectEmpAppointment" resultType="AppointmentVO">
+		SELECT *
+		FROM tbl_appointment
+		WHERE employee_id=#{employee_id}
+	</select>
+
+</mapper>
