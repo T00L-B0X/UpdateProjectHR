@@ -73,8 +73,12 @@ public class CommonController {
 	// 비밀번호 변경
 	// http://localhost:8088/changePassword
 	@RequestMapping(value = "/changePassword", method = RequestMethod.GET)
-	public void changePasswordGET() throws Exception {
+	public void changePasswordGET(String error, Model model) throws Exception {
 		logger.debug(" changePasswordGET() 호출 ");
+		
+		if (error != null) {
+			model.addAttribute("error", "비밀번호 변경 실패! 비밀번호를 확인해주세요.");
+		}
 	}
 
 	@RequestMapping(value = "/changePassword", method = RequestMethod.POST)
