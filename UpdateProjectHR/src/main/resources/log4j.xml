@@ -11,8 +11,29 @@
 	</appender>
 	
 	<!-- Application Loggers -->
+	<logger name="com.bswill.board">
+		<level value="debug" />
+	</logger>
+	<logger name="com.bswill.common">
+		<level value="debug" />
+	</logger>
 	<logger name="com.bswill.controller">
-		<level value="info" />
+		<level value="debug" />
+	</logger>
+	<logger name="com.bswill.employee">
+		<level value="debug" />
+	</logger>
+	<logger name="com.bswill.event">
+		<level value="debug" />
+	</logger>
+	<logger name="com.bswill.notification">
+		<level value="debug" />
+	</logger>
+	<logger name="com.bswill.organization">
+		<level value="debug" />
+	</logger>
+	<logger name="com.bswill.salary">
+		<level value="debug" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->

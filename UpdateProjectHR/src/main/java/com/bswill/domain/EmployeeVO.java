@@ -1,6 +1,7 @@
 package com.bswill.domain;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 public class EmployeeVO {
 
@@ -8,7 +9,6 @@ public class EmployeeVO {
 	private String PASSWD;
 	private String emp_name;
 	private String PROFIL;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private String birth;
 	private int gender;
 	private String emp_tel;
@@ -17,10 +17,8 @@ public class EmployeeVO {
 	private int JOB_ID;
 	private int DEPTID;
 	private int STATUS;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private String start_date;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private String quit_date;
+	private Date start_date;
+	private Timestamp quit_date;
 	private String FAVORS;
 	private String enabled;
 
@@ -120,19 +118,19 @@ public class EmployeeVO {
 		STATUS = sTATUS;
 	}
 
-	public String getStart_date() {
+	public Date getStart_date() {
 		return start_date;
 	}
 
-	public void setStart_date(String start_date) {
+	public void setStart_date(Date start_date) {
 		this.start_date = start_date;
 	}
 
-	public String getQuit_date() {
+	public Timestamp getQuit_date() {
 		return quit_date;
 	}
 
-	public void setQuit_date(String quit_date) {
+	public void setQuit_date(Timestamp quit_date) {
 		this.quit_date = quit_date;
 	}
 
@@ -154,10 +152,11 @@ public class EmployeeVO {
 
 	@Override
 	public String toString() {
-		return "EmployeeVO [employee_id=" + employee_id + ", PASSWD=" + PASSWD + ", emp_name=" + emp_name + ", PROFIL=" + PROFIL + ", birth=" + birth
-				+ ", gender=" + gender + ", emp_tel=" + emp_tel + ", emp_mail=" + emp_mail + ", emp_addr=" + emp_addr + ", JOB_ID=" + JOB_ID
-				+ ", DEPTID=" + DEPTID + ", STATUS=" + STATUS + ", start_date=" + start_date + ", quit_date=" + quit_date + ", FAVORS=" + FAVORS
-				+ ", enabled=" + enabled + "]";
+		return "EmployeeVO [employee_id=" + employee_id + ", PASSWD=" + PASSWD + ", emp_name=" + emp_name + ", PROFIL="
+				+ PROFIL + ", birth=" + birth + ", gender=" + gender + ", emp_tel=" + emp_tel + ", emp_mail=" + emp_mail
+				+ ", emp_addr=" + emp_addr + ", JOB_ID=" + JOB_ID + ", DEPTID=" + DEPTID + ", STATUS=" + STATUS
+				+ ", start_date=" + start_date + ", quit_date=" + quit_date + ", FAVORS=" + FAVORS + ", enabled="
+				+ enabled + "]";
 	}
 
 }

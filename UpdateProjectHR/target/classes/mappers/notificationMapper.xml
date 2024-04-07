@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bswill.mappers.NotificationMapper">
+
+	<insert id="insertNoti">
+		INSERT INTO tbl_notification (employee_id, noti_title, noti_link)
+		VALUES (#{employee_id}, #{noti_title}, #{noti_link})
+	</insert>
+
+</mapper>

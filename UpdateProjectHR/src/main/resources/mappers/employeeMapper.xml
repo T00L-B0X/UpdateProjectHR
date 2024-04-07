@@ -13,19 +13,57 @@
 		JOIN tbl_department dept ON emp.DEPTID = dept.DEPTID
 		WHERE emp.employee_id=#{employee_id}
 	</select>
-	
+
 	<!-- 로그인한 사원 자격증 정보 -->
 	<select id="selectEmpLicense" resultType="LicenseVO">
 		SELECT *
 		FROM tbl_license
 		WHERE employee_id=#{employee_id}
 	</select>
-	
+
 	<!-- 로그인한 사원 발령 정보 -->
 	<select id="selectEmpAppointment" resultType="AppointmentVO">
 		SELECT *
 		FROM tbl_appointment
 		WHERE employee_id=#{employee_id}
 	</select>
+
+	<!-- 로그인한 사원 연락처, 이메일 수정 -->
+	<update id="updateEmpTelAndEmail">
+		UPDATE tbl_employee
+		SET emp_tel=#{emp_tel}, emp_mail=#{emp_mail}
+		WHERE employee_id=#{employee_id}
+	</update>
+
+	<!-- 사원번호용 사원수 -->
+	<select id="selectEmpCount" resultType="int">
+		SELECT COUNT(employee_id) + 101
+		FROM tbl_employee
+		WHERE start_date LIKE (SELECT CONCAT(#{year}, '%'))
+	</select>
+
+	<!-- 사원 등록 -->
+	<insert id="insertEmp">
+		INSERT INTO tbl_employee(employee_id, PASSWD, emp_name, PROFIL, birth, gender, emp_tel, emp_mail, emp_addr, JOB_ID, DEPTID, start_date)
+		VALUES(#{employee_id}, #{PASSWD}, #{emp_name}, #{PROFIL}, #{birth}, #{gender}, #{emp_tel}, #{emp_mail}, #{emp_addr}, #{JOB_ID}, #{DEPTID}, #{start_date})
+	</insert>
+
+	<!-- 사원(MEMBER) 권한 등록 -->
+	<insert id="insertRole_Member">
+		INSERT INTO tbl_auth
+		VALUES(#{employee_id}, 'ROLE_MEMBER')
+	</insert>
+
+	<!-- 사원 자격증 등록 -->
+	<insert id="insertLicense">
+		INSERT INTO tbl_license(employee_id, license, li_org, li_date)
+		VALUES(#{employee_id}, #{license}, #{li_org}, #{li_date})
+	</insert>
+
+	<!-- 사원 발령정보 등록 -->
+	<insert id="insertAppointment">
+		INSERT INTO tbl_appointment(employee_id, app_issue, app_content, app_date)
+		VALUES(#{employee_id}, #{app_issue}, #{app_content}, #{app_date})
+	</insert>
 
 </mapper>

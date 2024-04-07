@@ -1,5 +1,8 @@
 package com.bswill.domain;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class EventVO {
@@ -8,9 +11,9 @@ public class EventVO {
 	private String eve_class;
 	private String eve_subject;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private String eve_date;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private String req_date;
+	private Date eve_date;
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	private Timestamp req_date;
 	private int eve_amount;
 	private String eve_auth;
 
@@ -38,19 +41,19 @@ public class EventVO {
 		this.eve_subject = eve_subject;
 	}
 
-	public String getEve_date() {
+	public Date getEve_date() {
 		return eve_date;
 	}
 
-	public void setEve_date(String eve_date) {
+	public void setEve_date(Date eve_date) {
 		this.eve_date = eve_date;
 	}
 
-	public String getReq_date() {
+	public Timestamp getReq_date() {
 		return req_date;
 	}
 
-	public void setReq_date(String req_date) {
+	public void setReq_date(Timestamp req_date) {
 		this.req_date = req_date;
 	}
 
@@ -72,8 +75,9 @@ public class EventVO {
 
 	@Override
 	public String toString() {
-		return "EventVO [employee_id=" + employee_id + ", eve_class=" + eve_class + ", eve_subject=" + eve_subject + ", eve_date=" + eve_date
-				+ ", req_date=" + req_date + ", eve_amount=" + eve_amount + ", eve_auth=" + eve_auth + "]";
+		return "EventVO [employee_id=" + employee_id + ", eve_class=" + eve_class + ", eve_subject=" + eve_subject
+				+ ", eve_date=" + eve_date + ", req_date=" + req_date + ", eve_amount=" + eve_amount + ", eve_auth="
+				+ eve_auth + "]";
 	}
 
 }

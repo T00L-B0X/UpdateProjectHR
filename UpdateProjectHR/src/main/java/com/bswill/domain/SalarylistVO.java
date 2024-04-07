@@ -1,12 +1,11 @@
 package com.bswill.domain;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import java.sql.Date;
 
 public class SalarylistVO {
 
 	private int employee_id;
-	@DateTimeFormat(pattern = "yyyy-MM")
-	private String pay_yearmonth;
+	private Date pay_yearmonth;
 	private int JOB_ID;
 	private int salary;
 	private int bonus;
@@ -21,11 +20,11 @@ public class SalarylistVO {
 		this.employee_id = employee_id;
 	}
 
-	public String getPay_yearmonth() {
+	public Date getPay_yearmonth() {
 		return pay_yearmonth;
 	}
 
-	public void setPay_yearmonth(String pay_yearmonth) {
+	public void setPay_yearmonth(Date pay_yearmonth) {
 		this.pay_yearmonth = pay_yearmonth;
 	}
 
@@ -71,8 +70,8 @@ public class SalarylistVO {
 
 	@Override
 	public String toString() {
-		return "SalarylistVO [employee_id=" + employee_id + ", pay_yearmonth=" + pay_yearmonth + ", JOB_ID=" + JOB_ID + ", salary=" + salary
-				+ ", bonus=" + bonus + ", premium=" + premium + ", sum=" + sum + "]";
+		return "SalarylistVO [employee_id=" + employee_id + ", pay_yearmonth=" + pay_yearmonth + ", JOB_ID=" + JOB_ID
+				+ ", salary=" + salary + ", bonus=" + bonus + ", premium=" + premium + ", sum=" + sum + "]";
 	}
 
 }

@@ -9,7 +9,7 @@
 			<div class="col-md-3">
 				<div class="box box-primary">
 					<div class="box-body box-profile" style="min-height: 490px;">
-						<img class="profile-user-img img-responsive img-circle" src="/emp/download?PROFIL=${getEmpInfo.PROFIL }" alt="User profile picture">
+						<img class="profile-user-img img-responsive img-circle" src="/employee/download?PROFIL=${getEmpInfo.PROFIL }" alt="User profile picture">
 						<h3 class="profile-username text-center">${getEmpInfo.emp_name }</h3>
 						<ul class="list-group list-group-unbordered">
 							<li class="list-group-item">
@@ -97,6 +97,7 @@
 								</div>
 								<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">연락처와 이메일만 변경 가능합니다.</div>
+									<div class="col-sm-offset-2 col-sm-10">${update }</div>
 								</div>
 								<div class="form-group">
 									<div class="col-sm-offset-2 col-sm-10">

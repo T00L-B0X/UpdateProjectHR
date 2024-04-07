@@ -1,6 +1,6 @@
 package com.bswill.domain;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import java.sql.Timestamp;
 
 public class BoardVO {
 
@@ -8,10 +8,8 @@ public class BoardVO {
 	private String title;
 	private int employee_id;
 	private String content;
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	private String regdate;
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	private String updatedate;
+	private Timestamp regdate;
+	private Timestamp updatedate;
 	private int readcnt;
 
 	public int getBoard_no() {
@@ -46,19 +44,19 @@ public class BoardVO {
 		this.content = content;
 	}
 
-	public String getRegdate() {
+	public Timestamp getRegdate() {
 		return regdate;
 	}
 
-	public void setRegdate(String regdate) {
+	public void setRegdate(Timestamp regdate) {
 		this.regdate = regdate;
 	}
 
-	public String getUpdatedate() {
+	public Timestamp getUpdatedate() {
 		return updatedate;
 	}
 
-	public void setUpdatedate(String updatedate) {
+	public void setUpdatedate(Timestamp updatedate) {
 		this.updatedate = updatedate;
 	}
 
@@ -72,8 +70,8 @@ public class BoardVO {
 
 	@Override
 	public String toString() {
-		return "BoardVO [board_no=" + board_no + ", title=" + title + ", employee_id=" + employee_id + ", content=" + content + ", regdate=" + regdate
-				+ ", updatedate=" + updatedate + ", readcnt=" + readcnt + "]";
+		return "BoardVO [board_no=" + board_no + ", title=" + title + ", employee_id=" + employee_id + ", content="
+				+ content + ", regdate=" + regdate + ", updatedate=" + updatedate + ", readcnt=" + readcnt + "]";
 	}
 
 }

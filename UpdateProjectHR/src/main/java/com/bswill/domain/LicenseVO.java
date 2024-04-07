@@ -1,14 +1,15 @@
 package com.bswill.domain;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import java.sql.Date;
+import java.util.List;
 
 public class LicenseVO {
 
 	private int employee_id;
 	private String license;
 	private String li_org;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private String li_date;
+	private Date li_date;
+	private List<LicenseVO> lList;
 
 	public int getEmployee_id() {
 		return employee_id;
@@ -34,17 +35,26 @@ public class LicenseVO {
 		this.li_org = li_org;
 	}
 
-	public String getLi_date() {
+	public Date getLi_date() {
 		return li_date;
 	}
 
-	public void setLi_date(String li_date) {
+	public void setLi_date(Date li_date) {
 		this.li_date = li_date;
+	}
+
+	public List<LicenseVO> getLList() {
+		return lList;
+	}
+
+	public void setLList(List<LicenseVO> lList) {
+		this.lList = lList;
 	}
 
 	@Override
 	public String toString() {
-		return "LicenseVO [employee_id=" + employee_id + ", license=" + license + ", li_org=" + li_org + ", li_date=" + li_date + "]";
+		return "LicenseVO [employee_id=" + employee_id + ", license=" + license + ", li_org=" + li_org + ", li_date="
+				+ li_date + ", lList=" + lList + "]";
 	}
 
 }

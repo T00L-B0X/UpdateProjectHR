@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.bswill.domain.AppointmentVO;
+import com.bswill.domain.EmployeeVO;
 import com.bswill.domain.LicenseVO;
 
 @Repository
@@ -42,6 +43,48 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		logger.debug("selectEmpAppointment(Integer employee_id) 호출");
 
 		return sqlSession.selectList(NAMESPACE + ".selectEmpAppointment", employee_id);
+	}
+
+	@Override
+	public int updateEmpTelAndEmail(EmployeeVO evo) throws Exception {
+		logger.debug("updateEmpTelAndEmail(EmployeeVO evo) 호출");
+
+		return sqlSession.update(NAMESPACE + ".updateEmpTelAndEmail", evo);
+	}
+
+	@Override
+	public int selectEmpCount(String year) throws Exception {
+		logger.debug("selectEmpCount(String year) 호출");
+
+		return sqlSession.selectOne(NAMESPACE + ".selectEmpCount", year);
+	}
+
+	@Override
+	public int insertEmp(EmployeeVO evo) throws Exception {
+		logger.debug("insertEmp(EmployeeVO evo) 호출");
+
+		return sqlSession.insert(NAMESPACE + ".insertEmp", evo);
+	}
+
+	@Override
+	public int insertRole_Member(Integer employee_id) throws Exception {
+		logger.debug("insertRole_Member(Integer employee_id) 호출");
+
+		return sqlSession.insert(NAMESPACE + ".insertRole_Member", employee_id);
+	}
+
+	@Override
+	public void insertLicense(LicenseVO lvo) throws Exception {
+		logger.debug("insertLicense(LicenseVO lvo) 호출");
+
+		sqlSession.insert(NAMESPACE + ".insertLicense", lvo);
+	}
+
+	@Override
+	public void insertAppointment(AppointmentVO avo) throws Exception {
+		logger.debug("insertAppointment(AppointmentVO avo) 호출");
+
+		sqlSession.insert(NAMESPACE + ".insertAppointment", avo);
 	}
 
 }

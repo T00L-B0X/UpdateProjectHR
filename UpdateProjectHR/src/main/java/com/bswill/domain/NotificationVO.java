@@ -1,16 +1,14 @@
 package com.bswill.domain;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import java.sql.Timestamp;
 
 public class NotificationVO {
 
 	private int employee_id;
 	private String noti_title;
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	private String noti_time;
+	private Timestamp noti_time;
 	private String noti_check;
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	private String read_time;
+	private Timestamp read_time;
 	private String noti_link;
 	private String noti_print;
 
@@ -30,11 +28,11 @@ public class NotificationVO {
 		this.noti_title = noti_title;
 	}
 
-	public String getNoti_time() {
+	public Timestamp getNoti_time() {
 		return noti_time;
 	}
 
-	public void setNoti_time(String noti_time) {
+	public void setNoti_time(Timestamp noti_time) {
 		this.noti_time = noti_time;
 	}
 
@@ -46,11 +44,11 @@ public class NotificationVO {
 		this.noti_check = noti_check;
 	}
 
-	public String getRead_time() {
+	public Timestamp getRead_time() {
 		return read_time;
 	}
 
-	public void setRead_time(String read_time) {
+	public void setRead_time(Timestamp read_time) {
 		this.read_time = read_time;
 	}
 
@@ -72,8 +70,9 @@ public class NotificationVO {
 
 	@Override
 	public String toString() {
-		return "NotificationVO [employee_id=" + employee_id + ", noti_title=" + noti_title + ", noti_time=" + noti_time + ", noti_check=" + noti_check
-				+ ", read_time=" + read_time + ", noti_link=" + noti_link + ", noti_print=" + noti_print + "]";
+		return "NotificationVO [employee_id=" + employee_id + ", noti_title=" + noti_title + ", noti_time=" + noti_time
+				+ ", noti_check=" + noti_check + ", read_time=" + read_time + ", noti_link=" + noti_link
+				+ ", noti_print=" + noti_print + "]";
 	}
 
 }
