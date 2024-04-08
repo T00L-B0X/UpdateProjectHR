@@ -115,7 +115,7 @@
 							<tbody>
 								<c:forEach var="list" items="${getEmpList }">
 									<tr role="row" class="odd">
-										<td><a href="/emp/modifyEmp?employee_id=${list.employee_id }">${list.employee_id }</a></td>
+										<td><a href="/employee/modifyEmp?employee_id=${list.employee_id }">${list.employee_id }</a></td>
 										<td>${list.emp_name }</td>
 										<td>${list.JOB }</td>
 										<td>${list.DEPTNM }</td>

@@ -4,8 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.List;
+import java.sql.Timestamp;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -15,10 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -129,7 +126,7 @@ public class EmployeeController {
 
 		empService.registEmp(evo, profile, lList, aList, req);
 
-		return "redirect:/employee/listEmp";
+		return "redirect:/employee/getEmpList";
 	}
 
 	@RequestMapping(value = "/download", method = RequestMethod.GET)
@@ -185,11 +182,11 @@ public class EmployeeController {
 			if (cri.getSort() == null) {
 				cri.setSort("employee_id");
 			}
-			
-			if(cri.getOrder() == null) {
+
+			if (cri.getOrder() == null) {
 				cri.setOrder("ASC");
 			}
-			
+
 			model.addAttribute("getEmpList", empService.getEmpList(cri));
 			model.addAttribute("pageCri", new PageCri(cri, empService.countEmp()));
 			model.addAttribute("cri", cri);
@@ -198,6 +195,90 @@ public class EmployeeController {
 		}
 
 		return path;
+	}
+
+	@RequestMapping(value = "/modifyEmp", method = RequestMethod.GET)
+	public String modifyEmpGET(@RequestParam("employee_id") int employee_id,
+			@RequestParam(name = "act", required = false) String act, Model model) throws Exception {
+		logger.debug("EmployeeController - modifyEmpGET() 호출");
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		int anonymous = authentication.getAuthorities().toString().indexOf("ROLE_ANONYMOUS");
+		int member = authentication.getAuthorities().toString().indexOf("ROLE_MEMBER");
+
+		String path = "redirect:/accessError";
+
+		if (authentication != null && anonymous == -1 && member == -1) {
+			if (act == null) {
+				act = "1";
+			}
+
+			model.addAttribute("act", act);
+			model.addAttribute("getEmpInfo", empService.getEmpInfo(employee_id));
+			model.addAttribute("getEmpLicense", empService.getEmpLicense(employee_id));
+			model.addAttribute("getEmpAppointment", empService.getEmpAppointment(employee_id));
+
+			path = "/employee/modifyEmp";
+		}
+
+		return path;
+	}
+
+	@RequestMapping(value = "/modifyEmp", method = RequestMethod.POST)
+	public String modifyEmpPOST(EmployeeVO evo, @RequestParam(name = "profile", required = false) MultipartFile profile,
+			Model model, HttpServletRequest req) throws Exception {
+		logger.debug("EmployeeController - modifyEmpPOST() 호출");
+
+		logger.debug("evo: " + evo);
+		logger.debug("profile: " + profile);
+
+		empService.modifyEmp(evo, profile, req);
+
+		return "redirect:/employee/modifyEmp?employee_id=" + evo.getEmployee_id() + "&act=1";
+	}
+
+	@RequestMapping(value = "/insertLicense", method = RequestMethod.POST)
+	public String insertLicense(LicenseVO lvo) throws Exception {
+		logger.debug("insertLicense() 호출");
+
+		logger.debug("lvo: " + lvo);
+
+		empService.addEmpLicense(lvo);
+
+		return "redirect:/employee/modifyEmp?employee_id=" + lvo.getEmployee_id() + "&act=2";
+	}
+
+	@RequestMapping(value = "/deleteLicense", method = RequestMethod.POST)
+	public String deleteLicense(LicenseVO lvo) throws Exception {
+		logger.debug("insertLicense() 호출");
+
+		logger.debug("lvo: " + lvo);
+
+		empService.subEmpLicense(lvo);
+
+		return "redirect:/employee/modifyEmp?employee_id=" + lvo.getEmployee_id() + "&act=2";
+	}
+
+	@RequestMapping(value = "/insertAppointment", method = RequestMethod.POST)
+	public String insertAppointment(AppointmentVO avo) throws Exception {
+		logger.debug("inserAppointment() 호출");
+
+		logger.debug("lvo: " + avo);
+
+		empService.addEmpAppointment(avo);
+
+		return "redirect:/employee/modifyEmp?employee_id=" + avo.getEmployee_id() + "&act=3";
+	}
+
+	@RequestMapping(value = "/deleteAppointment", method = RequestMethod.POST)
+	public String deleteAppointment(AppointmentVO avo) throws Exception {
+		logger.debug("insertAppointment() 호출");
+
+		logger.debug("lvo: " + avo);
+
+		empService.subEmpAppointment(avo);
+
+		return "redirect:/employee/modifyEmp?employee_id=" + avo.getEmployee_id() + "&act=3";
 	}
 
 }

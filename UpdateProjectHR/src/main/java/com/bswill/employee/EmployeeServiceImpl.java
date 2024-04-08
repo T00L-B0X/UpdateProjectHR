@@ -3,6 +3,7 @@ package com.bswill.employee;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +53,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 
 		return profileName;
+	}
+
+	private void deleteProfile(String profileName, HttpServletRequest req) {
+		String uploadDir = req.getRealPath("/upload");
+		File file = new File(uploadDir + File.separator + profileName);
+		if (file.exists()) {
+			file.delete();
+		}
 	}
 
 	@Override
@@ -184,6 +193,101 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 
 		return edao.selectEmpList(cri);
+	}
+
+	@Override
+	public void modifyEmp(EmployeeVO evo, MultipartFile profile, HttpServletRequest req) throws Exception {
+		logger.debug("getEmpList(modifyEmp(EmployeeVO evo) 호출");
+
+		if (profile != null && !profile.isEmpty()) {
+			String profileName = saveProfile(evo.getEmployee_id(), profile, req);
+
+			logger.debug("profileName: " + profileName);
+
+			if (!profileName.equals(evo.getPROFIL())) {
+				deleteProfile(evo.getPROFIL(), req);
+			}
+
+			evo.setPROFIL(profileName);
+		}
+
+		if (evo.getSTATUS() == 3) {
+			evo.setQuit_date(new Timestamp(System.currentTimeMillis()));
+			evo.setEnabled("0");
+		} else {
+			evo.setQuit_date(null);
+			evo.setEnabled("1");
+		}
+
+		edao.updateEmp(evo);
+
+		NotificationVO nvo = new NotificationVO();
+
+		nvo.setEmployee_id(evo.getEmployee_id());
+		nvo.setNoti_title("관리자에 의해 사원정보가 변경되었습니다.");
+		nvo.setNoti_link("/employee/viewEmp");
+
+		notiService.addNoti(nvo);
+	}
+
+	@Override
+	public void addEmpLicense(LicenseVO lvo) throws Exception {
+		logger.debug("addEmpLicense(LicenseVO lvo) 호출");
+
+		edao.insertLicense(lvo);
+
+		NotificationVO nvo = new NotificationVO();
+
+		nvo.setEmployee_id(lvo.getEmployee_id());
+		nvo.setNoti_title("관리자에 의해 자격정보가 추가되었습니다.");
+		nvo.setNoti_link("/employee/viewEmp");
+
+		notiService.addNoti(nvo);
+	}
+
+	@Override
+	public void subEmpLicense(LicenseVO lvo) throws Exception {
+		logger.debug("subEmpLicense(LicenseVO lvo) 호출");
+
+		edao.deleteLicense(lvo);
+
+		NotificationVO nvo = new NotificationVO();
+
+		nvo.setEmployee_id(lvo.getEmployee_id());
+		nvo.setNoti_title("관리자에 의해 자격정보가 삭제되었습니다.");
+		nvo.setNoti_link("/employee/viewEmp");
+
+		notiService.addNoti(nvo);
+	}
+
+	@Override
+	public void addEmpAppointment(AppointmentVO avo) throws Exception {
+		logger.debug("addEmpAppointment(AppointmentVO avo) 호출");
+
+		edao.insertAppointment(avo);
+
+		NotificationVO nvo = new NotificationVO();
+
+		nvo.setEmployee_id(avo.getEmployee_id());
+		nvo.setNoti_title("관리자에 의해 발령정보가 추가되었습니다.");
+		nvo.setNoti_link("/employee/viewEmp");
+
+		notiService.addNoti(nvo);
+	}
+
+	@Override
+	public void subEmpAppointment(AppointmentVO avo) throws Exception {
+		logger.debug("subEmpAppointment(AppointmentVO avo) 호출");
+
+		edao.deleteAppointment(avo);
+
+		NotificationVO nvo = new NotificationVO();
+
+		nvo.setEmployee_id(avo.getEmployee_id());
+		nvo.setNoti_title("관리자에 의해 발령정보가 삭제되었습니다.");
+		nvo.setNoti_link("/employee/viewEmp");
+
+		notiService.addNoti(nvo);
 	}
 
 }

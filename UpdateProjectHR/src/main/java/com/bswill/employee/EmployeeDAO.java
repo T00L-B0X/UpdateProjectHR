@@ -43,4 +43,13 @@ public interface EmployeeDAO {
 	// 사원 목록(페이징)
 	public List<Map<String, Object>> selectEmpList(Criteria cri) throws Exception;
 
+	// 사원 정보 수정
+	public void updateEmp(EmployeeVO evo) throws Exception;
+
+	// 자격증 정보 삭제
+	public void deleteLicense(LicenseVO lvo);
+
+	// 발령 정보 삭제
+	public void deleteAppointment(AppointmentVO avo);
+
 }

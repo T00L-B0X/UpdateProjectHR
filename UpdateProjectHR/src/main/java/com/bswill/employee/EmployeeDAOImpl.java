@@ -102,4 +102,25 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		return sqlSession.selectList(NAMESPACE + ".selectEmpList", cri);
 	}
 
+	@Override
+	public void updateEmp(EmployeeVO evo) throws Exception {
+		logger.debug("updateEmp(EmployeeVO evo) 호출");
+
+		sqlSession.update(NAMESPACE + ".updateEmp", evo);
+	}
+
+	@Override
+	public void deleteLicense(LicenseVO lvo) {
+		logger.debug("deleteLicense(LicenseVO lvo) 호출");
+
+		sqlSession.update(NAMESPACE + ".deleteLicense", lvo);
+	}
+
+	@Override
+	public void deleteAppointment(AppointmentVO avo) {
+		logger.debug("deleteAppointment(AppointmentVO avo) 호출");
+
+		sqlSession.update(NAMESPACE + ".deleteAppointment", avo);
+	}
+
 }

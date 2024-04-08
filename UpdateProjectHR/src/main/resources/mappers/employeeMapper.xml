@@ -65,7 +65,7 @@
 		INSERT INTO tbl_appointment(employee_id, app_issue, app_content, app_date)
 		VALUES(#{employee_id}, #{app_issue}, #{app_content}, #{app_date})
 	</insert>
-	
+
 	<!-- 사원목록 조회수 -->
 	<select id="selectEmpCount" resultType="int">
 		SELECT COUNT(employee_id)
@@ -76,7 +76,7 @@
             WHERE ${search} LIKE CONCAT('%', #{keyword}, '%')
         </if>
 	</select>
-	
+
 	<!-- 사원 목록 -->
 	<select id="selectEmpList" resultType="map" parameterType="Criteria">
 	    SELECT employee_id, emp_name, JOB, DEPTNM, start_date, STATUS
@@ -91,5 +91,24 @@
 	    </if>
 	    LIMIT #{startPage}, #{pageSize}
 	</select>
+
+	<!-- 사원 정보 수정 -->
+	<update id="updateEmp">
+			UPDATE tbl_employee
+			SET emp_name=#{emp_name}, PROFIL=#{PROFIL}, birth=#{birth}, gender=#{gender}, emp_tel=#{emp_tel}, emp_mail=#{emp_mail}, emp_addr=#{emp_addr}, JOB_ID=#{JOB_ID}, DEPTID=#{DEPTID}, STATUS=#{STATUS}, quit_date=#{quit_date}, enabled=#{enabled}
+			WHERE employee_id=#{employee_id}
+	</update>
+
+	<!-- 자격증 정보 삭제 -->
+	<delete id="deleteLicense">
+		DELETE FROM tbl_license
+		WHERE employee_id=#{employee_id} AND license=#{license}
+	</delete>
+
+	<!-- 발령 정보 삭제 -->
+	<delete id="deleteAppointment">
+		DELETE FROM tbl_appointment
+		WHERE employee_id=#{employee_id} AND app_issue=#{app_issue} AND app_date=#{app_date}
+	</delete>
 
 </mapper>

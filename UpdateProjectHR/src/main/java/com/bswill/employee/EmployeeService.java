@@ -36,4 +36,19 @@ public interface EmployeeService {
 	// 사원 목록
 	public List<Map<String, Object>> getEmpList(Criteria cri) throws Exception;
 
+	// 사원 정보 수정
+	public void modifyEmp(EmployeeVO evo, MultipartFile profile, HttpServletRequest req) throws Exception;
+
+	// 자격증 정보 추가
+	public void addEmpLicense(LicenseVO lvo) throws Exception;
+
+	// 자격증 정보 삭제
+	public void subEmpLicense(LicenseVO lvo) throws Exception;
+
+	// 발령 정보 추가
+	public void addEmpAppointment(AppointmentVO avo) throws Exception;
+
+	// 발령 정보 삭제
+	public void subEmpAppointment(AppointmentVO avo) throws Exception;
+
 }
