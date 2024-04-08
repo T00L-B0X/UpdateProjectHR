@@ -25,9 +25,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bswill.domain.AppointmentVO;
+import com.bswill.domain.Criteria;
 import com.bswill.domain.EmployeeVO;
 import com.bswill.domain.LicenseVO;
 import com.bswill.domain.NotificationVO;
+import com.bswill.domain.PageCri;
 
 @Controller
 @RequestMapping("/employee/*")
@@ -166,7 +168,7 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value = "/getEmpList", method = RequestMethod.GET)
-	public String getEmpListGET() throws Exception {
+	public String getEmpListGET(Criteria cri, Model model) throws Exception {
 		logger.debug("EmployeeController - listEmpGET() 호출");
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -176,6 +178,22 @@ public class EmployeeController {
 		String path = "redirect:/accessError";
 
 		if (authentication != null && anonymous == -1 && member == -1) {
+			if (cri.getSearch() == null) {
+				cri.setSearch("employee_id");
+			}
+
+			if (cri.getSort() == null) {
+				cri.setSort("employee_id");
+			}
+			
+			if(cri.getOrder() == null) {
+				cri.setOrder("ASC");
+			}
+			
+			model.addAttribute("getEmpList", empService.getEmpList(cri));
+			model.addAttribute("pageCri", new PageCri(cri, empService.countEmp()));
+			model.addAttribute("cri", cri);
+
 			path = "/employee/getEmpList";
 		}
 

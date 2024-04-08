@@ -36,7 +36,7 @@
 	</update>
 
 	<!-- 사원번호용 사원수 -->
-	<select id="selectEmpCount" resultType="int">
+	<select id="selectEmpnoCount" resultType="int">
 		SELECT COUNT(employee_id) + 101
 		FROM tbl_employee
 		WHERE start_date LIKE (SELECT CONCAT(#{year}, '%'))
@@ -65,5 +65,31 @@
 		INSERT INTO tbl_appointment(employee_id, app_issue, app_content, app_date)
 		VALUES(#{employee_id}, #{app_issue}, #{app_content}, #{app_date})
 	</insert>
+	
+	<!-- 사원목록 조회수 -->
+	<select id="selectEmpCount" resultType="int">
+		SELECT COUNT(employee_id)
+		FROM tbl_employee emp
+	    JOIN tbl_job job ON emp.JOB_ID = job.JOB_ID
+	    JOIN tbl_department dept ON emp.DEPTID = dept.DEPTID
+        <if test="keyword != null">
+            WHERE ${search} LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+	</select>
+	
+	<!-- 사원 목록 -->
+	<select id="selectEmpList" resultType="map" parameterType="Criteria">
+	    SELECT employee_id, emp_name, JOB, DEPTNM, start_date, STATUS
+	    FROM tbl_employee emp
+	    JOIN tbl_job job ON emp.JOB_ID = job.JOB_ID
+	    JOIN tbl_department dept ON emp.DEPTID = dept.DEPTID
+        <if test="keyword != null">
+            WHERE ${search} LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+	    <if test="sort != null">
+	        ORDER BY ${sort} ${order}
+	    </if>
+	    LIMIT #{startPage}, #{pageSize}
+	</select>
 
 </mapper>

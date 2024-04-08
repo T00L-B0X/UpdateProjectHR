@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.bswill.domain.AppointmentVO;
+import com.bswill.domain.Criteria;
 import com.bswill.domain.EmployeeVO;
 import com.bswill.domain.LicenseVO;
 
@@ -53,10 +54,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 
 	@Override
-	public int selectEmpCount(String year) throws Exception {
+	public int selectEmpnoCount(String year) throws Exception {
 		logger.debug("selectEmpCount(String year) 호출");
 
-		return sqlSession.selectOne(NAMESPACE + ".selectEmpCount", year);
+		return sqlSession.selectOne(NAMESPACE + ".selectEmpnoCount", year);
 	}
 
 	@Override
@@ -85,6 +86,20 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		logger.debug("insertAppointment(AppointmentVO avo) 호출");
 
 		sqlSession.insert(NAMESPACE + ".insertAppointment", avo);
+	}
+
+	@Override
+	public int selectEmpCount() throws Exception {
+		logger.debug("selectEmpCount() 호출");
+
+		return sqlSession.selectOne(NAMESPACE + ".selectEmpCount");
+	}
+
+	@Override
+	public List<Map<String, Object>> selectEmpList(Criteria cri) throws Exception {
+		logger.debug("selectEmpList(Criteria cri) 호출");
+
+		return sqlSession.selectList(NAMESPACE + ".selectEmpList", cri);
 	}
 
 }

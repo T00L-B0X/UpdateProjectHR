@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bswill.domain.AppointmentVO;
+import com.bswill.domain.Criteria;
 import com.bswill.domain.EmployeeVO;
 import com.bswill.domain.LicenseVO;
 import com.bswill.domain.NotificationVO;
@@ -93,7 +94,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		String year = parts[0];
 
 		// 해당년도 입사순번 + 100
-		int empno = edao.selectEmpCount(year);
+		int empno = edao.selectEmpnoCount(year);
 		logger.debug("empno: " + empno);
 
 		// employee_id = 입사년도 + 입사부서 + (해당년도 입사순번 + 100)
@@ -153,6 +154,36 @@ public class EmployeeServiceImpl implements EmployeeService {
 		nvo.setNoti_link("/employee/getEmpInfo");
 
 		notiService.addNoti(nvo);
+	}
+
+	@Override
+	public int countEmp() throws Exception {
+		logger.debug("countEmp() 호출");
+
+		return edao.selectEmpCount();
+	}
+
+	@Override
+	public List<Map<String, Object>> getEmpList(Criteria cri) throws Exception {
+		logger.debug("getEmpList(Criteria cri) 호출");
+
+		if (cri.getSearch().equals("STATUS")) {
+			switch (cri.getKeyword()) {
+			case "재직":
+				cri.setKeyword("1");
+				break;
+			case "휴직":
+				cri.setKeyword("2");
+				break;
+			case "퇴직":
+				cri.setKeyword("3");
+				break;
+			default:
+				break;
+			}
+		}
+
+		return edao.selectEmpList(cri);
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bswill.domain.AppointmentVO;
+import com.bswill.domain.Criteria;
 import com.bswill.domain.EmployeeVO;
 import com.bswill.domain.LicenseVO;
 
@@ -28,5 +29,11 @@ public interface EmployeeService {
 	// 사원 등록
 	public void registEmp(EmployeeVO evo, MultipartFile profile, LicenseVO lList, AppointmentVO aList,
 			HttpServletRequest req) throws Exception;
+
+	// DB에 등록된 사원수
+	public int countEmp() throws Exception;
+
+	// 사원 목록
+	public List<Map<String, Object>> getEmpList(Criteria cri) throws Exception;
 
 }
