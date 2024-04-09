@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
-import java.sql.Timestamp;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +24,6 @@ import com.bswill.domain.AppointmentVO;
 import com.bswill.domain.Criteria;
 import com.bswill.domain.EmployeeVO;
 import com.bswill.domain.LicenseVO;
-import com.bswill.domain.NotificationVO;
 import com.bswill.domain.PageCri;
 
 @Controller
@@ -115,8 +113,8 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value = "/registEmp", method = RequestMethod.POST)
-	public String registEmpPOST(EmployeeVO evo, Model model, @RequestParam("profile") MultipartFile profile,
-			LicenseVO lList, AppointmentVO aList, HttpServletRequest req) throws Exception {
+	public String registEmpPOST(EmployeeVO evo, Model model, @RequestParam("profile") MultipartFile profile, LicenseVO lList, AppointmentVO aList,
+			HttpServletRequest req) throws Exception {
 		logger.debug("EmployeeController - registEmpPOST() 호출");
 
 		logger.debug("evo: " + evo);
@@ -130,9 +128,8 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value = "/download", method = RequestMethod.GET)
-	public void fileDownload(@RequestParam("PROFIL") String PROFIL, HttpServletRequest req, HttpServletResponse resp)
-			throws Exception {
-		logger.debug("fileDownload() 호출");
+	public void fileDownload(@RequestParam("PROFIL") String PROFIL, HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		logger.debug("EmployeeController - fileDownload() 호출");
 
 		String downloadPath = req.getRealPath("/upload");
 
@@ -198,8 +195,8 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value = "/modifyEmp", method = RequestMethod.GET)
-	public String modifyEmpGET(@RequestParam("employee_id") int employee_id,
-			@RequestParam(name = "act", required = false) String act, Model model) throws Exception {
+	public String modifyEmpGET(@RequestParam("employee_id") int employee_id, @RequestParam(name = "act", required = false) String act, Model model)
+			throws Exception {
 		logger.debug("EmployeeController - modifyEmpGET() 호출");
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -225,8 +222,8 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value = "/modifyEmp", method = RequestMethod.POST)
-	public String modifyEmpPOST(EmployeeVO evo, @RequestParam(name = "profile", required = false) MultipartFile profile,
-			Model model, HttpServletRequest req) throws Exception {
+	public String modifyEmpPOST(EmployeeVO evo, @RequestParam(name = "profile", required = false) MultipartFile profile, Model model,
+			HttpServletRequest req) throws Exception {
 		logger.debug("EmployeeController - modifyEmpPOST() 호출");
 
 		logger.debug("evo: " + evo);
@@ -239,7 +236,7 @@ public class EmployeeController {
 
 	@RequestMapping(value = "/insertLicense", method = RequestMethod.POST)
 	public String insertLicense(LicenseVO lvo) throws Exception {
-		logger.debug("insertLicense() 호출");
+		logger.debug("EmployeeController - insertLicense() 호출");
 
 		logger.debug("lvo: " + lvo);
 
@@ -250,7 +247,7 @@ public class EmployeeController {
 
 	@RequestMapping(value = "/deleteLicense", method = RequestMethod.POST)
 	public String deleteLicense(LicenseVO lvo) throws Exception {
-		logger.debug("insertLicense() 호출");
+		logger.debug("EmployeeController - insertLicense() 호출");
 
 		logger.debug("lvo: " + lvo);
 
@@ -261,7 +258,7 @@ public class EmployeeController {
 
 	@RequestMapping(value = "/insertAppointment", method = RequestMethod.POST)
 	public String insertAppointment(AppointmentVO avo) throws Exception {
-		logger.debug("inserAppointment() 호출");
+		logger.debug("EmployeeController - inserAppointment() 호출");
 
 		logger.debug("lvo: " + avo);
 
@@ -272,7 +269,7 @@ public class EmployeeController {
 
 	@RequestMapping(value = "/deleteAppointment", method = RequestMethod.POST)
 	public String deleteAppointment(AppointmentVO avo) throws Exception {
-		logger.debug("insertAppointment() 호출");
+		logger.debug("EmployeeController - insertAppointment() 호출");
 
 		logger.debug("lvo: " + avo);
 

@@ -3,16 +3,12 @@ package com.bswill.domain;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 public class EventVO {
 
 	private int employee_id;
 	private String eve_class;
 	private String eve_subject;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date eve_date;
-	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private Timestamp req_date;
 	private int eve_amount;
 	private String eve_auth;
@@ -75,9 +71,8 @@ public class EventVO {
 
 	@Override
 	public String toString() {
-		return "EventVO [employee_id=" + employee_id + ", eve_class=" + eve_class + ", eve_subject=" + eve_subject
-				+ ", eve_date=" + eve_date + ", req_date=" + req_date + ", eve_amount=" + eve_amount + ", eve_auth="
-				+ eve_auth + "]";
+		return "EventVO [employee_id=" + employee_id + ", eve_class=" + eve_class + ", eve_subject=" + eve_subject + ", eve_date=" + eve_date
+				+ ", req_date=" + req_date + ", eve_amount=" + eve_amount + ", eve_auth=" + eve_auth + "]";
 	}
 
 }
