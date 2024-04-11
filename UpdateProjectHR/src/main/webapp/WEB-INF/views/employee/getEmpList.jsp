@@ -11,19 +11,14 @@
 			</div>
 
 			<form action="" method="get">
-				<label for="search">검색 유형:</label> <select id="search" name="search">
-					<option value="employee_id"
-						<c:if test="${cri.search eq 'employee_id' }">selected</c:if>>사원번호</option>
-					<option value="emp_name"
-						<c:if test="${cri.search eq 'emp_name' }">selected</c:if>>사원명</option>
-					<option value="JOB"
-						<c:if test="${cri.search eq 'JOB' }">selected</c:if>>직급</option>
-					<option value="DEPTNM"
-						<c:if test="${cri.search eq 'DEPTNM' }">selected</c:if>>부서</option>
-					<option value="start_date"
-						<c:if test="${cri.search eq 'start_date' }">selected</c:if>>입사일</option>
-					<option value="STATUS"
-						<c:if test="${cri.search eq 'STATUS' }">selected</c:if>>재직상태</option>
+				<label for="search">검색 유형:</label>
+				<select id="search" name="search">
+					<option value="employee_id" <c:if test="${cri.search eq 'employee_id' }">selected</c:if>>사원번호</option>
+					<option value="emp_name" <c:if test="${cri.search eq 'emp_name' }">selected</c:if>>사원명</option>
+					<option value="JOB" <c:if test="${cri.search eq 'JOB' }">selected</c:if>>직급</option>
+					<option value="DEPTNM" <c:if test="${cri.search eq 'DEPTNM' }">selected</c:if>>부서</option>
+					<option value="start_date" <c:if test="${cri.search eq 'start_date' }">selected</c:if>>입사일</option>
+					<option value="STATUS" <c:if test="${cri.search eq 'STATUS' }">selected</c:if>>재직상태</option>
 				</select>
 				<input type="text" id="keyword" name="keyword">
 				<input type="hidden" name="sort" value="employee_id">

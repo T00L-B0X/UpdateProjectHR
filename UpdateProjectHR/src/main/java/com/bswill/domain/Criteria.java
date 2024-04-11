@@ -4,6 +4,7 @@ public class Criteria {
 
 	private int page;
 	private int pageSize;
+	private int employee_id;
 	private String search;
 	private String keyword;
 	private String sort;
@@ -50,6 +51,14 @@ public class Criteria {
 		this.pageSize = pageSize;
 	}
 
+	public int getEmployee_id() {
+		return employee_id;
+	}
+
+	public void setEmployee_id(int employee_id) {
+		this.employee_id = employee_id;
+	}
+
 	public String getSearch() {
 		return search;
 	}
@@ -84,8 +93,8 @@ public class Criteria {
 
 	@Override
 	public String toString() {
-		return "Criteria [page=" + page + ", pageSize=" + pageSize + ", search=" + search + ", keyword=" + keyword
-				+ ", sort=" + sort + ", order=" + order + "]";
+		return "Criteria [page=" + page + ", pageSize=" + pageSize + ", employee_id=" + employee_id + ", search="
+				+ search + ", keyword=" + keyword + ", sort=" + sort + ", order=" + order + "]";
 	}
 
 }

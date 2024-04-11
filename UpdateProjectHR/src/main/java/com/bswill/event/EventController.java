@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bswill.domain.Criteria;
 import com.bswill.domain.EventVO;
+import com.bswill.domain.PageCri;
 
 @Controller
 @RequestMapping("/event/*")
@@ -66,7 +67,24 @@ public class EventController {
 		if (authentication != null && anonymous == -1) {
 			int employee_id = Integer.parseInt(authentication.getName());
 
-			// model.addAttribute("getEmpEventList", eveService.getEmpEventList(employee_id, cri));
+			if (cri.getSearch() == null) {
+				cri.setSearch("eve_class");
+			}
+
+			if (cri.getSort() == null) {
+				cri.setSort("req_date");
+			}
+
+			if (cri.getOrder() == null) {
+				cri.setOrder("DESC");
+			}
+
+			cri.setEmployee_id(employee_id);
+			logger.debug("cri.emp: " + cri.getEmployee_id());
+
+			model.addAttribute("getEmpEvent", eveService.getEmpEvent(cri));
+			model.addAttribute("pageCri", new PageCri(cri, eveService.countEmpEvent(cri)));
+			model.addAttribute("cri", cri);
 
 			path = "";
 		}

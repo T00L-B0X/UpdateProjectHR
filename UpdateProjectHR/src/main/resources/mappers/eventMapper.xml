@@ -5,16 +5,34 @@
 
 <mapper namespace="com.bswill.mappers.EventMapper">
 
+	<!-- 경조비 신청 -->
 	<insert id="insertEvent">
 		INSERT INTO tbl_event (employee_id, eve_class, eve_subject, eve_date, eve_amount)
 		VALUES (#{employee_id}, #{eve_class}, #{eve_subject}, #{eve_date}, #{eve_amount})
 	</insert>
 
+	<!-- 로그인한 사원 경조비 조회수 -->
+	<select id="selectEmpEventCount" resultType="int">
+		SELECT COUNT(employee_id)
+		FROM tbl_event
+		WHERE employee_id=#{employee_id}
+		<if test="keyword != null">
+            AND ${search} LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+	</select>
+
+	<!-- 로그인한 사원 경조비 조회 -->
 	<select id="selectEmpEvent" resultType="EventVO">
 		SELECT eve_class, eve_subject, eve_date, req_date, eve_auth
 		FROM tbl_event
-		WHERE employee_id=#{employee_id} AND ${search} LIKE CONCAT('%', #{keyword}, '%')
-		ORDER BY req_date DESC
+		WHERE employee_id=#{employee_id}
+		<if test="keyword != null">
+            AND ${search} LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+	    <if test="sort != null">
+	        ORDER BY ${sort} ${order}
+	    </if>
+	    LIMIT #{startPage}, #{pageSize}
 	</select>
 
 </mapper>
