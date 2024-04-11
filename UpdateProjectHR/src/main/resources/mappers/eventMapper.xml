@@ -23,7 +23,7 @@
 
 	<!-- 로그인한 사원 경조비 조회 -->
 	<select id="selectEmpEvent" resultType="EventVO">
-		SELECT eve_class, eve_subject, eve_date, req_date, eve_auth
+		SELECT eve_class, eve_subject, eve_date, req_date, eve_amount, eve_auth
 		FROM tbl_event
 		WHERE employee_id=#{employee_id}
 		<if test="keyword != null">
@@ -34,5 +34,49 @@
 	    </if>
 	    LIMIT #{startPage}, #{pageSize}
 	</select>
+
+	<!-- 전체 경조비 신청 목록수 -->
+	<select id="selectEventListCount" resultType="int">
+		SELECT COUNT(employee_id)
+		FROM tbl_event
+		<if test="keyword != null">
+			WHERE ${search} LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+	</select>
+
+	<!-- 전체 경조비 신청 목록 -->
+	<select id="selectEventList" resultType="EventVO">
+		SELECT employee_id, eve_class, eve_subject, eve_date, req_date, eve_amount, eve_auth
+		FROM tbl_event
+		<if test="keyword != null">
+			WHERE ${search} LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+		<if test="sort != null">
+			ORDER BY ${sort} ${order}
+		</if>
+		LIMIT #{startPage}, #{pageSize}
+	</select>
+
+	<!-- 사원 계좌 조회 -->
+	<select id="selectEmpSalary" resultType="map">
+		SELECT emp.employee_id, emp.emp_name, emp.gender, emp.emp_tel, emp.emp_mail, job.JOB, dept.DEPTNM, emp.STATUS, sal.salary, sal.bank, sal.account, sal.account_holder
+		FROM tbl_employee emp
+		JOIN tbl_salary sal ON emp.employee_id = sal.employee_id
+		JOIN tbl_job job ON emp.JOB_ID = job.JOB_ID
+		JOIN tbl_department dept ON emp.DEPTID = dept.DEPTID
+		WHERE emp.employee_id=#{employee_id}
+	</select>
+
+	<!-- 경조비 승인 -->
+	<update id="updateEventAuthApprove">
+		UPDATE tbl_event SET eve_auth='승인'
+		WHERE employee_id=#{employee_id} AND eve_class=#{eve_class} AND eve_subject=#{eve_subject}
+	</update>
+
+	<!-- 경조비 거부 -->
+	<update id="updateEventAuthReject">
+		UPDATE tbl_event SET eve_auth='거부'
+		WHERE employee_id=#{employee_id} AND eve_class=#{eve_class} AND eve_subject=#{eve_subject}
+	</update>
 
 </mapper>

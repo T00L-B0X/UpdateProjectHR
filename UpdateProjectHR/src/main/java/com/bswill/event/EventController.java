@@ -10,9 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bswill.domain.Criteria;
 import com.bswill.domain.EventVO;
+import com.bswill.domain.NotificationVO;
 import com.bswill.domain.PageCri;
 
 @Controller
@@ -56,7 +58,7 @@ public class EventController {
 
 	// http://localhost:8088/emp/getEmpEvent
 	@RequestMapping(value = "/getEmpEvent", method = RequestMethod.GET)
-	public void getEmpEventGET(Criteria cri, Model model) throws Exception {
+	public String getEmpEventGET(Criteria cri, Model model) throws Exception {
 		logger.debug("EventController - getEmpEventGET() 호출");
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -80,15 +82,91 @@ public class EventController {
 			}
 
 			cri.setEmployee_id(employee_id);
-			logger.debug("cri.emp: " + cri.getEmployee_id());
 
 			model.addAttribute("getEmpEvent", eveService.getEmpEvent(cri));
 			model.addAttribute("pageCri", new PageCri(cri, eveService.countEmpEvent(cri)));
 			model.addAttribute("cri", cri);
 
-			path = "";
+			path = "/event/getEmpEvent";
 		}
 
+		return path;
 	}
 
+	@RequestMapping(value = "/getEventList", method = RequestMethod.GET)
+	public String getEventListGET(Criteria cri, Model model) throws Exception {
+		logger.debug("EventController - getEventListGET() 호출");
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		int anonymous = authentication.getAuthorities().toString().indexOf("ROLE_ANONYMOUS");
+		int member = authentication.getAuthorities().toString().indexOf("ROLE_MEMBER");
+
+		String path = "redirect:/accessError";
+
+		if (authentication != null && anonymous == -1 && member == -1) {
+			if (cri.getSearch() == null) {
+				cri.setSearch("eve_class");
+			}
+
+			if (cri.getSort() == null) {
+				cri.setSort("req_date");
+			}
+
+			if (cri.getOrder() == null) {
+				cri.setOrder("DESC");
+			}
+
+			model.addAttribute("getEventList", eveService.getEventList(cri));
+			model.addAttribute("pageCri", new PageCri(cri, eveService.countEventList(cri)));
+			model.addAttribute("cri", cri);
+
+			path = "/event/getEventList";
+		}
+
+		return path;
+	}
+
+	@RequestMapping(value = "/getEmpAccountInfo", method = RequestMethod.GET)
+	public String viewEmpAccountInfoGET(Model model, @RequestParam("employee_id") int employee_id) throws Exception {
+		logger.debug("EventController - getEmpAccountInfoGET() 호출");
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		int anonymous = authentication.getAuthorities().toString().indexOf("ROLE_ANONYMOUS");
+		int member = authentication.getAuthorities().toString().indexOf("ROLE_MEMBER");
+
+		String path = "redirect:/accessError";
+
+		if (authentication != null && anonymous == -1 && member == -1) {
+
+			logger.debug("employee_id: " + employee_id);
+
+			model.addAttribute("getSalary", eveService.getEmpSalary(employee_id));
+
+			path = "/event/getEmpAccountInfo";
+		}
+
+		return path;
+	}
+
+	@RequestMapping(value = "/approveEmpEvent", method = RequestMethod.POST)
+	public String approveEmpEventPOST(EventVO evo) throws Exception {
+		logger.debug("EventController - approveEmpEventPOST() 호출");
+
+		logger.debug("vvo:" + evo);
+
+		eveService.modifyEventAuthApprove(evo);
+
+		return "redirect:/event/getEventList";
+	}
+
+	@RequestMapping(value = "/rejectEmpEvent", method = RequestMethod.POST)
+	public String rejectEmpEventPOST(EventVO evo) throws Exception {
+		logger.debug("EventController - rejectEmpEventPOST() 호출");
+
+		logger.debug("vvo:" + evo);
+
+		eveService.modifyEventAuthReject(evo);
+
+		return "redirect:/event/getEventList";
+	}
 }

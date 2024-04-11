@@ -179,7 +179,7 @@
 									</a></li>
 							</sec:authorize>
 						</ul></li>
-					<li class="treeview"><a href="#">
+					<li class="treeview" id="event"><a href="#">
 							<i class="fa fa-laptop"></i> <span>경조비관리</span> <i class="fa fa-angle-left pull-right"></i>
 						</a>
 						<ul class="treeview-menu">
