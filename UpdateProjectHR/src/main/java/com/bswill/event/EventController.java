@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bswill.domain.Criteria;
 import com.bswill.domain.EventVO;
-import com.bswill.domain.NotificationVO;
 import com.bswill.domain.PageCri;
 
 @Controller

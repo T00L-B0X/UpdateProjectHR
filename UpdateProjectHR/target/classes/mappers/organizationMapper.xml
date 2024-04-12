@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bswill.mappers.OrganizationMapper">
+
+	<!-- 구성원 목록 조회 -->
+	<select id="selectOrgList" resultType="map">
+		SELECT employee_id, emp_name, JOB, DEPTNM, emp_tel, emp_mail, STATUS, FAVORS
+		FROM tbl_employee emp
+		JOIN tbl_job job ON emp.JOB_ID=job.JOB_ID
+		JOIN tbl_department dept ON emp.DEPTID=dept.DEPTID
+		<if test="sort != null">
+	        ORDER BY ${sort} ${order}
+	    </if>
+	</select>
+
+	<!-- 로그인한 사원의 즐겨찾기 -->
+	<select id="selectEmpFavors" resultType="String">
+		SELECT FAVORS
+		FROM tbl_employee
+		WHERE employee_id=#{employee_id}
+	</select>
+	
+	<!-- 즐겨찾기 추가 -->
+	<update id="updateFavors">
+		UPDATE tbl_employee SET FAVORS=#{FAVORS}
+		WHERE employee_id=#{employee_id}
+	</update>
+	
+	<!-- 즐겨찾기 목록 조회 -->
+	<select id="selectEmpFavorsList" resultType="map">
+		SELECT employee_id, emp_name, JOB, DEPTNM, emp_tel, emp_mail, STATUS
+		FROM tbl_employee emp
+		JOIN tbl_job job ON emp.JOB_ID=job.JOB_ID
+		JOIN tbl_department dept on emp.DEPTID=dept.DEPTID
+		WHERE FIND_IN_SET(emp.employee_id, (SELECT FAVORS FROM tbl_employee WHERE employee_id=#{employee_id}));
+	</select>
+	
+	<!-- 즐겨찾기 전체 삭제 -->
+	<update id="removeFavors">
+		UPDATE tbl_employee SET FAVORS=''
+		WHERE employee_id = #{employee_id}
+	</update>
+
+</mapper>

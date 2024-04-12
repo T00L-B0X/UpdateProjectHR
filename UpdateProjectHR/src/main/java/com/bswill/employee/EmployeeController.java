@@ -80,7 +80,7 @@ public class EmployeeController {
 		evo.setEmployee_id(employee_id);
 		logger.debug("evo: " + evo);
 
-		String path = "";
+		String path = "redirect:/accessError";
 
 		int result = empService.modifyEmpTelAndEmail(evo);
 
