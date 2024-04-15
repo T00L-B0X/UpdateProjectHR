@@ -7,7 +7,7 @@
 
 	<!-- 구성원 목록 조회 -->
 	<select id="selectOrgList" resultType="map">
-		SELECT employee_id, emp_name, JOB, DEPTNM, emp_tel, emp_mail, STATUS, FAVORS
+		SELECT employee_id, emp_name, PROFIL, JOB, DEPTNM, emp_tel, emp_mail, STATUS, FAVORS
 		FROM tbl_employee emp
 		JOIN tbl_job job ON emp.JOB_ID=job.JOB_ID
 		JOIN tbl_department dept ON emp.DEPTID=dept.DEPTID
@@ -31,11 +31,14 @@
 	
 	<!-- 즐겨찾기 목록 조회 -->
 	<select id="selectEmpFavorsList" resultType="map">
-		SELECT employee_id, emp_name, JOB, DEPTNM, emp_tel, emp_mail, STATUS
+		SELECT employee_id, emp_name, PROFIL, JOB, DEPTNM, emp_tel, emp_mail, STATUS
 		FROM tbl_employee emp
 		JOIN tbl_job job ON emp.JOB_ID=job.JOB_ID
 		JOIN tbl_department dept on emp.DEPTID=dept.DEPTID
-		WHERE FIND_IN_SET(emp.employee_id, (SELECT FAVORS FROM tbl_employee WHERE employee_id=#{employee_id}));
+		WHERE FIND_IN_SET(emp.employee_id, (SELECT FAVORS FROM tbl_employee WHERE employee_id=#{employee_id}))
+		<if test="sort != null">
+	        ORDER BY ${sort} ${order}
+	    </if>
 	</select>
 	
 	<!-- 즐겨찾기 전체 삭제 -->
@@ -43,5 +46,23 @@
 		UPDATE tbl_employee SET FAVORS=''
 		WHERE employee_id = #{employee_id}
 	</update>
+
+	<!-- 부서 정보 조회 -->
+	<select id="selectDeptInfo" resultType="com.bswill.domain.DepartmentVO">
+		SELECT DEPTID, DEPTNM
+		FROM tbl_department
+	</select>
+
+	<!-- 부서 구성원 목록 조회 -->
+	<select id="selectOrgDeptList" resultType="map">
+		SELECT employee_id, emp_name, PROFIL, JOB, DEPTNM, emp_tel, emp_mail, STATUS, FAVORS
+		FROM tbl_employee emp
+		JOIN tbl_job job ON emp.JOB_ID=job.JOB_ID
+		JOIN tbl_department dept ON emp.DEPTID=dept.DEPTID
+		WHERE dept.DEPTID=#{DEPTID}
+		<if test="sort != null">
+	        ORDER BY ${sort} ${order}
+	    </if>
+	</select>
 
 </mapper>

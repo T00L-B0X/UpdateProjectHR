@@ -15,7 +15,7 @@ public interface CommonDAO {
 	public List<JobVO> selectJobInfo() throws Exception;
 
 	// 부서 목록 조회
-	public List<DepartmentVO> selectDeptInfo();
+	public List<DepartmentVO> selectDeptInfo() throws Exception;
 
 	// 사원 비밀번호 선택
 	public String selectPassword(Integer employee_id) throws Exception;

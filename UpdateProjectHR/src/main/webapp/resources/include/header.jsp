@@ -153,7 +153,7 @@
 							<li><a href="/organization/getOrgList">
 									<i class="fa fa-circle-o"></i>구성원조회
 								</a></li>
-							<li><a href="/organization/getFavorList">
+							<li><a href="/organization/getOrgFavorsList">
 									<i class="fa fa-circle-o"></i>즐겨찾기
 								</a></li>
 							<li><a href="/organization/getDeptList">

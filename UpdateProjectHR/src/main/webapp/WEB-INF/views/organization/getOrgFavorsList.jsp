@@ -8,11 +8,19 @@
 	<section class="content">
 		<div class="box">
 			<div class="box-header">
-				<h3 class="box-title">구성원 목록</h3>
+				<h3 class="box-title">즐겨찾기 목록</h3>
 			</div>
-			
-			<form action="/organization/updateFavors" method="post">
+
+			<c:if test="${empty getEmpFavorsList }">
+				<div class="box-body">
+					<h4>즐겨찾기 목록이 비어 있습니다.</h4>
+				</div>
+			</c:if>
+
+			<c:if test="${not empty getEmpFavorsList }">
+				<form action="/organization/updateFavors" method="post">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+				<input type="hidden" name="orgFavor" value="orgFavor">
 				
 				<div class="box-body">
 				<div class="row">
@@ -88,7 +96,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="list" items="${getOrgList }">
+								<c:forEach var="list" items="${getEmpFavorsList }">
 									<tr role="row" class="odd">
 										<td><input type="checkbox" name="favors" value="${list.employee_id}" <c:if test="${fn:indexOf(getEmpFavors, list.employee_id) ne -1 }">checked</c:if>></td>
 										<td>${list.employee_id }</td>
@@ -125,8 +133,9 @@
 						<button type="submit" onclick="alert('즐겨찾기 변경');">즐겨찾기 변경</button>
 					</div>
 				</div>
-			</div>
-			</form>
+				</div>
+				</form>
+			</c:if>
 		</div>
 	</section>
 </div>

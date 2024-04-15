@@ -39,7 +39,7 @@ public class CommonDAOImpl implements CommonDAO {
 	}
 
 	@Override
-	public List<DepartmentVO> selectDeptInfo() {
+	public List<DepartmentVO> selectDeptInfo() throws Exception {
 		logger.debug("selectDeptInfo() 호출");
 
 		return sqlSession.selectList(NAMESPACE + ".selectDeptInfo");

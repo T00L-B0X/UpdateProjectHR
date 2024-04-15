@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.bswill.domain.Criteria;
+import com.bswill.domain.DepartmentVO;
 
 @Repository
 public class OrganizationDAOImpl implements OrganizationDAO {
@@ -24,7 +25,7 @@ public class OrganizationDAOImpl implements OrganizationDAO {
 
 	@Override
 	public List<Map<String, Object>> selectOrgList(Criteria cri) throws Exception {
-		logger.debug("selectOrgList() 호출");
+		logger.debug("selectOrgList(Criteria cri) 호출");
 
 		return sqlSession.selectList(NAMESPACE + ".selectOrgList", cri);
 	}
@@ -41,6 +42,27 @@ public class OrganizationDAOImpl implements OrganizationDAO {
 		logger.debug("updateFavors(Map<String, Object> paramMap) 호출");
 
 		sqlSession.update(NAMESPACE + ".updateFavors", paramMap);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectEmpFavorsList(Map<String, Object> paramMap) throws Exception {
+		logger.debug("selectEmpFavorsList(Map<String, Object> paramMap) 호출");
+
+		return sqlSession.selectList(NAMESPACE + ".selectEmpFavorsList", paramMap);
+	}
+
+	@Override
+	public List<DepartmentVO> selectDeptInfo() throws Exception {
+		logger.debug("selectDeptInfo() 호출");
+
+		return sqlSession.selectList(NAMESPACE + ".selectDeptInfo");
+	}
+
+	@Override
+	public List<Map<String, Object>> selectOrgDeptList(Map<String, Object> paramMap) throws Exception {
+		logger.debug("selectOrgDeptList(Map<String, Object> paramMap) 호출");
+
+		return sqlSession.selectList(NAMESPACE + ".selectOrgDeptList", paramMap);
 	}
 
 }
