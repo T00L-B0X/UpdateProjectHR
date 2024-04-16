@@ -29,7 +29,7 @@
 						<table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
 							<thead>
 								<tr role="row">
-									<th><input type="checkbox" onclick="toggleAll(this)"></th>
+									<th><input type="checkbox" class="favors" onclick="toggleAll(this)"></th>
 									<th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending">
 										사원번호
 										<c:if test="${cri.sort ne 'employee_id' }">									
@@ -98,7 +98,7 @@
 							<tbody>
 								<c:forEach var="list" items="${getEmpFavorsList }">
 									<tr role="row" class="odd">
-										<td><input type="checkbox" name="favors" value="${list.employee_id}" <c:if test="${fn:indexOf(getEmpFavors, list.employee_id) ne -1 }">checked</c:if>></td>
+										<td><input type="checkbox" class="favors" name="favors" value="${list.employee_id}" <c:if test="${fn:indexOf(getEmpFavors, list.employee_id) ne -1 }">checked</c:if>></td>
 										<td>${list.employee_id }</td>
 										<td>${list.emp_name }</td>
 										<td><img src="/organization/download?PROFIL=${list.PROFIL }"></td>
@@ -118,7 +118,7 @@
 							</tbody>
 							<tfoot>
 								<tr>
-									<th><input type="checkbox" onclick="toggleAll(this)"></th>
+									<th><input type="checkbox" class="favors" onclick="toggleAll(this)"></th>
 									<th rowspan="1" colspan="1">사원번호</th>
 									<th rowspan="1" colspan="1">사원명</th>
 									<th rowspan="1" colspan="1">프로필</th>
@@ -142,7 +142,7 @@
 
 <script>
 	function toggleAll(source) {
-		checkboxes = document.getElementsByName('favors');
+		checkboxes = document.getElementsByClassName('favors');
 		for (var i = 0; i < checkboxes.length; i++) {
 			checkboxes[i].checked = source.checked;
 		}

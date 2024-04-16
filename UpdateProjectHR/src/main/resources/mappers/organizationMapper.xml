@@ -40,12 +40,6 @@
 	        ORDER BY ${sort} ${order}
 	    </if>
 	</select>
-	
-	<!-- 즐겨찾기 전체 삭제 -->
-	<update id="removeFavors">
-		UPDATE tbl_employee SET FAVORS=''
-		WHERE employee_id = #{employee_id}
-	</update>
 
 	<!-- 부서 정보 조회 -->
 	<select id="selectDeptInfo" resultType="com.bswill.domain.DepartmentVO">
